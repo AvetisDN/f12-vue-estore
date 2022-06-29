@@ -37,5 +37,13 @@ export const useProductsStore = defineStore({
         this.loading = false;
       }
     },
+    async getProduct(slug) {
+      try {
+        const response = await axios.get(`${API_URL}/products/${slug}`);
+        return response.data[0];
+      } catch (error) {
+        this.error = error;
+      }
+    },
   },
 });

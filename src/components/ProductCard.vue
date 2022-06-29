@@ -1,4 +1,6 @@
 <script setup>
+import { useCartStore } from "../stores/cart";
+const { addToCart, isInCart } = useCartStore();
 defineProps(["product"]);
 </script>
 
@@ -35,10 +37,23 @@ defineProps(["product"]);
         </span>
       </div>
       <button
-        class="text-xl mt-4 p-3 border-2 border-rose-400 border-opacity-50 rounded-xl transition-all text-rose-600 hover:bg-rose-500 hover:border-opacity-100 hover:text-slate-50 disabled:opacity-30 disabled:pointer-events-none disabled:border-slate-800 disabled:text-slate-800"
-        :disabled="!product.inStock"
+        class="text-xl mt-4 p-3 border-2 border-rose-400 border-opacity-50 rounded-xl transition-all text-rose-600 hover:bg-rose-500 hover:border-opacity-100 hover:text-slate-50 disabled:opacity-30 disabled:pointer-events-none"
+        :class="{
+          'border-slate-700': !product.inStock,
+          'border-emerald-600': isInCart(product.slug) !== -1,
+        }"
+        :disabled="!product.inStock || isInCart(product.slug) !== -1"
+        @click="addToCart(product.slug)"
       >
-        <i class="fa-duotone fa-cart-circle-arrow-down"></i>
+        <i
+          class="fa-duotone fa-cart-circle-arrow-down"
+          v-if="isInCart(product.slug) === -1 && product.inStock"
+        ></i>
+        <i
+          class="fa-solid fa-cart-circle-xmark text-slate-700"
+          v-else-if="!product.inStock"
+        ></i>
+        <i class="fa-solid fa-cart-circle-check text-emerald-600" v-else></i>
       </button>
     </div>
   </div>

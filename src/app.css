@@ -53,6 +53,46 @@
   right: 0;
 }
 
+.menu-enter-active,
+.menu-leave-active,
+.slide-down-enter-active,
+.slide-down-leave-active,
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.4s ease;
+}
+
+.menu-enter-to,
+.menu-leave-from {
+  left: 0;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  left: -320px;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-down-enter-to,
+.slide-down-leave-from {
+  top: 50%;
+  opacity: 1;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  top: 0;
+  opacity: 0;
+}
+
 .products {
   @apply grid gap-6;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
